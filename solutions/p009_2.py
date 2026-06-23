@@ -9,17 +9,26 @@ Find the product abc.
 
 def find_Pythagorean_Triplet(target):
     '''
-    暴力求解
-    Input: sum of the Pythagorean triplet
-    Output: the Pythagorean triplet a,b,c
+    勾股数生成式
+    a = k(m^2 - n^2)
+    b = k(2mn)
+    c = k(m^2 + n^2)<target, so m<sqrt(target/2)
     '''
-    # a < b < c, so a < target/3, b < (target-a)/2
-    for a in range(1, target // 3):
-        for b in range(a + 1, (target - a) // 2 + 1):
-            c = target - a - b
-            if a * a + b * b == c * c:
-                return a, b, c
 
+    m =2
+    while 2 * m * m < target:
+        for n in range(1, m):
+            denominator = 2 * m * (m + n)
+            if target % denominator == 0:
+                k = target // denominator
+                a = k * (m * m - n * n)
+                b = k * (2 * m * n)
+                c = k * (m * m + n * n)
+
+                # 公式生成出来的 a, b 不一定满足 a < b，所以排序
+                a, b, c = sorted([a, b, c])
+                return a, b, c
+        m += 1
     return None
 
 if __name__ == "__main__":

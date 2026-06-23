@@ -24,5 +24,5 @@ def find_nth_prime(n):
         candidate += 2 # 所有偶数都不是质数
     return prime_ls[-1]
 
-print('Ans:',find_nth_prime(10001))
+print('Ans:',find_nth_prime(10001)) # 104743
         

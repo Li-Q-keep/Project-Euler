@@ -9,17 +9,13 @@ Find the product abc.
 
 def find_Pythagorean_Triplet(target):
     '''
-    暴力求解
-    Input: sum of the Pythagorean triplet
-    Output: the Pythagorean triplet a,b,c
+    代数化简，一层循环
     '''
-    # a < b < c, so a < target/3, b < (target-a)/2
     for a in range(1, target // 3):
-        for b in range(a + 1, (target - a) // 2 + 1):
-            c = target - a - b
-            if a * a + b * b == c * c:
-                return a, b, c
-
+        b = (target * (target - 2 * a)) // (2 * (target - a))
+        c = target - a - b
+        if a * a + b * b == c * c:
+            return a, b, c
     return None
 
 if __name__ == "__main__":
