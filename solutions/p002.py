@@ -29,5 +29,5 @@ def sol2(max_num):
 
 if __name__=="__main__":
     max_num =10**6 *4
-    print('Sol1: ',sol1(max_num))
-    print('Sol2: ',sol2(max_num))
+    print('Sol1: ',sol1(max_num)) # 4613732
+    print('Sol2: ',sol2(max_num)) # 4613732
