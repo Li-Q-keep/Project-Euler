@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+"""
+自动更新 README.md 脚本
+扫描 solutions/ 和 notes/ 目录，生成进度统计和题目索引
+"""
+
 import os
 import re
 from pathlib import Path
@@ -9,7 +15,7 @@ NOTES_DIR = Path("notes")
 README_PATH = Path("README.md")
 
 BATCH_SIZE = 100
-MAX_PROBLEM = 997  # 根据实际调整
+MAX_PROBLEM = 997
 
 STATUS_DONE = "✅"
 STATUS_TODO = "❌"
@@ -17,51 +23,60 @@ STATUS_FEATURED = "⭐"
 
 
 def get_problem_number(filename: str) -> int | None:
-    """从文件名提取题号，如 p001.py -> 1"""
-    match = re.match(r'p(\d{3})\.(py|md)', filename)
+    """从文件名提取题号"""
+    match = re.match(r'p(\d+)(?:[_-].*)?\.(py|md)', filename, re.IGNORECASE)
     if match:
         return int(match.group(1))
     return None
 
 
-def get_problem_title(filepath: Path) -> str:
-    """从文件提取题目标题
-    
-    p00x.py 格式：
-    '''
-    problem title
-    ...
-    '''
-    codes...
-    """
+def get_solution_title(filepath: Path) -> str:
+    """从 solutions/p00x.py 提取题目标题"""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             lines = f.readlines()
         
-        if filepath.suffix == '.py':
-            in_docstring = False
-            for line in lines:
-                stripped = line.strip()
-                if stripped.startswith("'''") or stripped.startswith('"""'):
-                    if not in_docstring:
-                        in_docstring = True
-                        quote = stripped[:3]
-                        content_after = stripped[3:].strip()
-                        if content_after and not content_after.startswith(quote):
-                            return content_after.strip("'\"")
-                    else:
-                        break
-                elif in_docstring:
-                    if stripped:
-                        return stripped
+        in_docstring = False
+        for line in lines:
+            stripped = line.strip()
+            
+            if stripped.startswith("'''") or stripped.startswith('"""'):
+                if not in_docstring:
+                    in_docstring = True
+                    quote = stripped[:3]
+                    content = stripped[3:]
+                    if content.endswith(quote):
+                        content = content[:-3].strip()
+                    if content:
+                        return content.strip("'\"")
+                else:
+                    break
+            elif in_docstring:
+                if stripped:
+                    return stripped
+    
+    except Exception as e:
+        print(f"Warning: 无法读取 {filepath}: {e}")
+    
+    return "Unknown"
+
+
+def get_note_title(filepath: Path) -> str:
+    """从 notes/p00x-xxx.md 提取标题，去掉 [P9] 前缀"""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
         
-        elif filepath.suffix == '.md':
-            for line in lines:
-                stripped = line.strip()
-                if stripped.startswith('# '):
-                    return stripped[2:].strip()
-                elif stripped.startswith('## '):
-                    return stripped[3:].strip()
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith('# '):
+                title = stripped[2:].strip()
+                title = re.sub(r'^\[P\d+\]\s*', '', title)
+                return title
+            elif stripped.startswith('## '):
+                title = stripped[3:].strip()
+                title = re.sub(r'^\[P\d+\]\s*', '', title)
+                return title
     
     except Exception as e:
         print(f"Warning: 无法读取 {filepath}: {e}")
@@ -70,11 +85,14 @@ def get_problem_title(filepath: Path) -> str:
 
 
 def scan_solutions() -> dict[int, dict]:
+    """扫描 solutions/ 目录"""
     problems = {}
+    
     if not SOLUTIONS_DIR.exists():
+        print(f"Warning: {SOLUTIONS_DIR} 不存在")
         return problems
     
-    for filepath in SOLUTIONS_DIR.iterdir():
+    for filepath in sorted(SOLUTIONS_DIR.iterdir()):
         if filepath.suffix != '.py' or filepath.is_dir():
             continue
         
@@ -82,32 +100,47 @@ def scan_solutions() -> dict[int, dict]:
         if num is None:
             continue
         
-        title = get_problem_title(filepath)
+        if num in problems:
+            problems[num]['solution_files'].append(filepath.name)
+            continue
+        
+        title = get_solution_title(filepath)
         problems[num] = {
             'number': num,
             'title': title,
+            'solution_files': [filepath.name],
             'has_note': False,
+            'note_title': None,
+            'note_file': None,
         }
     
     return problems
 
 
 def scan_notes(problems: dict[int, dict]) -> None:
+    """扫描 notes/ 目录，匹配题号"""
     if not NOTES_DIR.exists():
+        print(f"Warning: {NOTES_DIR} 不存在")
         return
     
-    for filepath in NOTES_DIR.iterdir():
+    for filepath in sorted(NOTES_DIR.iterdir()):
         if filepath.suffix != '.md':
             continue
         
         num = get_problem_number(filepath.name)
-        if num is None or num not in problems:
+        if num is None:
+            continue
+        
+        if num not in problems:
             continue
         
         problems[num]['has_note'] = True
+        problems[num]['note_file'] = filepath.name
+        problems[num]['note_title'] = get_note_title(filepath)
 
 
 def generate_progress_bar(current: int, total: int, width: int = 20) -> str:
+    """生成 ASCII 进度条"""
     if total == 0:
         return "`░░░░░░░░░░░░░░░░░░░░` 0%"
     filled = int(width * current / total)
@@ -117,6 +150,7 @@ def generate_progress_bar(current: int, total: int, width: int = 20) -> str:
 
 
 def generate_progress_section(problems: dict[int, dict]) -> str:
+    """生成总进度统计"""
     total_solved = len(problems)
     total_with_notes = sum(1 for p in problems.values() if p['has_note'])
     
@@ -153,6 +187,7 @@ def generate_progress_section(problems: dict[int, dict]) -> str:
 
 
 def generate_featured_section(problems: dict[int, dict]) -> str:
+    """生成重点题解表格（有 notes/ 的题目）"""
     featured = {n: p for n, p in problems.items() if p['has_note']}
     
     if not featured:
@@ -165,14 +200,17 @@ def generate_featured_section(problems: dict[int, dict]) -> str:
     
     for num in sorted(featured.keys()):
         p = featured[num]
-        code_link = f"[p{num:03d}.py](solutions/p{num:03d}.py)"
-        note_link = f"[📖 详解](notes/p{num:03d}.md)"
-        lines.append(f"| {STATUS_FEATURED} **{num:03d}** | {p['title']} | {code_link} | {note_link} |")
+        main_file = p['solution_files'][0] if p['solution_files'] else f'p{num:03d}.py'
+        code_link = f"[{main_file}](solutions/{main_file})"
+        note_link = f"[📖 详解](notes/{p['note_file']})"
+        display_title = p['note_title'] or p['title']
+        lines.append(f"| {STATUS_FEATURED} **{num:03d}** | {display_title} | {code_link} | {note_link} |")
     
     return "\n".join(lines)
 
 
 def generate_index_section(problems: dict[int, dict]) -> str:
+    """生成按区间折叠的题目索引"""
     lines = []
     
     for start in range(1, MAX_PROBLEM + 1, BATCH_SIZE):
@@ -192,14 +230,15 @@ def generate_index_section(problems: dict[int, dict]) -> str:
             if num in problems:
                 p = problems[num]
                 status = STATUS_DONE
-                code_link = f"[代码](solutions/p{num:03d}.py)"
-                note_link = f"[📖](notes/p{num:03d}.md) ⭐" if p['has_note'] else "—"
+                main_file = p['solution_files'][0] if p['solution_files'] else f'p{num:03d}.py'
+                code_link = f"[代码](solutions/{main_file})"
+                note_link = f"[📖](notes/{p['note_file']}) ⭐" if p['has_note'] else '—'
                 title = p['title']
             else:
                 status = STATUS_TODO
-                code_link = "—"
-                note_link = "—"
-                title = "—"
+                code_link = '—'
+                note_link = '—'
+                title = '—'
             
             lines.append(f"| {num:03d} | {title} | {status} | {code_link} | {note_link} |")
         
@@ -211,6 +250,7 @@ def generate_index_section(problems: dict[int, dict]) -> str:
 
 
 def replace_chunk(content: str, marker: str, chunk: str) -> str:
+    """替换 README 中标记区块的内容"""
     pattern = re.compile(
         rf'<!-- {marker} starts -->.*?<!-- {marker} ends -->',
         re.DOTALL
@@ -237,6 +277,7 @@ def main():
             content = f.read()
     else:
         content = ""
+        print("Warning: README.md 不存在，将创建新文件")
     
     content = replace_chunk(content, "progress", progress)
     content = replace_chunk(content, "featured", featured)
@@ -249,5 +290,5 @@ def main():
     print(f"✅ README.md 已更新 ({timestamp})")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
