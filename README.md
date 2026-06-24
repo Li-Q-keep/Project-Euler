@@ -6,7 +6,7 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Euler](https://img.shields.io/badge/Project%20Euler-Chinese%20Edition-orange)](https://pe-cn.github.io/)
 
-&gt; 本仓库收录了 [欧拉计划中文版](https://pe-cn.github.io/) 的解题代码与必要的思路分析。
+> 本仓库收录了 [欧拉计划中文版](https://pe-cn.github.io/) 的解题代码与必要的思路分析。
 
 ---
 
@@ -43,6 +43,7 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 ├── .github/workflows/  # GitHub Actions 自动更新README
 │   └── update-readme.yml
 └── README.md
+```
 
 ## 🤝 贡献
 
