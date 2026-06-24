@@ -5,6 +5,7 @@
 """
 
 import os
+from urllib.parse import quote
 import re
 from pathlib import Path
 from datetime import datetime, timezone
@@ -21,6 +22,13 @@ STATUS_DONE = "✅"
 STATUS_TODO = "❌"
 STATUS_FEATURED = "⭐"
 
+
+
+
+def md_link(text: str, path: str) -> str:
+    """生成 Markdown 链接，自动编码路径中的特殊字符"""
+    encoded = quote(path, safe='/:#?=&')
+    return f"[{text}]({encoded})"
 
 def get_problem_number(filename: str) -> int | None:
     """从文件名提取题号"""
@@ -158,7 +166,7 @@ def generate_progress_section(problems: dict[int, dict]) -> str:
         f"### 总体进度",
         f"",
         f"- **已解题**: {total_solved} / {MAX_PROBLEM} {generate_progress_bar(total_solved, MAX_PROBLEM)}",
-        f"- **附题解**: {total_with_notes} / {total_solved} {generate_progress_bar(total_with_notes, total_solved) if total_solved > 0 else generate_progress_bar(0, 1)}",
+        # f"- **附题解**: {total_with_notes} / {total_solved} {generate_progress_bar(total_with_notes, total_solved) if total_solved > 0 else generate_progress_bar(0, 1)}",
         f"",
         "### 区间概览",
         "",
@@ -201,8 +209,8 @@ def generate_featured_section(problems: dict[int, dict]) -> str:
     for num in sorted(featured.keys()):
         p = featured[num]
         main_file = p['solution_files'][0] if p['solution_files'] else f'p{num:03d}.py'
-        code_link = f"[{main_file}](solutions/{main_file})"
-        note_link = f"[📖 详解](notes/{p['note_file']})"
+        code_link = md_link(main_file, f"solutions/{main_file}")
+        note_link = md_link('📖 原理详解', f"notes/{p['note_file']}")
         display_title = p['note_title'] or p['title']
         lines.append(f"| {STATUS_FEATURED} **{num:03d}** | {display_title} | {code_link} | {note_link} |")
     
@@ -223,24 +231,24 @@ def generate_index_section(problems: dict[int, dict]) -> str:
         lines.append(f'<details{open_attr}>')
         lines.append(f'<summary><b>{start:03d}-{end:03d}</b> — {solved}/{BATCH_SIZE} {generate_progress_bar(solved, BATCH_SIZE)}</summary>')
         lines.append("")
-        lines.append("| 题号 | 标题 | 状态 | 代码 | 题解 |")
-        lines.append("|------|------|------|------|------|")
+        lines.append("| 题号 | 标题 | 状态 | 代码 |")
+        lines.append("|------|------|------|------|")
         
         for num in range(start, end + 1):
             if num in problems:
                 p = problems[num]
                 status = STATUS_DONE
                 main_file = p['solution_files'][0] if p['solution_files'] else f'p{num:03d}.py'
-                code_link = f"[代码](solutions/{main_file})"
-                note_link = f"[📖](notes/{p['note_file']}) ⭐" if p['has_note'] else '—'
+                code_link = md_link('代码', f"solutions/{main_file}")
+                # note_link = md_link('📖', f"notes/{p['note_file']}") + ' ⭐' if p['has_note'] else '—'
                 title = p['title']
             else:
                 status = STATUS_TODO
                 code_link = '—'
-                note_link = '—'
+                # note_link = '—'
                 title = '—'
             
-            lines.append(f"| {num:03d} | {title} | {status} | {code_link} | {note_link} |")
+            lines.append(f"| {num:03d} | {title} | {status} | {code_link} |")
         
         lines.append("")
         lines.append("</details>")
