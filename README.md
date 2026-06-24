@@ -15,14 +15,14 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 <!-- progress starts -->
 ### 总体进度
 
-- **已解题**: 12 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.2%
-- **附题解**: 0 / 12 `░░░░░░░░░░░░░░░░░░░░` 0.0%
+- **已解题**: 13 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.3%
+- **附题解**: 1 / 13 `█░░░░░░░░░░░░░░░░░░░` 7.7%
 
 ### 区间概览
 
 | 区间 | 完成 | 进度 | 状态 |
 |------|------|------|------|
-| [001-100](#001-100) | 12/100 | `██░░░░░░░░░░░░░░░░░░` 12.0% | 🔴 缓慢 |
+| [001-100](#001-100) | 13/100 | `██░░░░░░░░░░░░░░░░░░` 13.0% | 🔴 缓慢 |
 | [101-200](#101-200) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [201-300](#201-300) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [301-400](#301-400) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
@@ -40,23 +40,23 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 
 <!-- index starts -->
 <details open>
-<summary><b>001-100</b> — 12/100 `██░░░░░░░░░░░░░░░░░░` 12.0%</summary>
+<summary><b>001-100</b> — 13/100 `██░░░░░░░░░░░░░░░░░░` 13.0%</summary>
 
 | 题号 | 标题 | 状态 | 代码 | 题解 |
 |------|------|------|------|------|
-| 001 | Find the sum of all the multiples of 3 or 5 below 1000. | ✅ | [代码](solutions/p001.py) | — |
-| 002 | 考虑该斐波那契数列中不超过四百万的项，求其中为偶数的项之和。 | ✅ | [代码](solutions/p002.py) | — |
+| 001 | Multiples of 3 or 5 | ✅ | [代码](solutions/p001.py) | — |
+| 002 | Even Fibonacci Numbers | ✅ | [代码](solutions/p002.py) | — |
 | 003 | Largest Prime Factor | ✅ | [代码](solutions/p003.py) | — |
 | 004 | Largest Palindrome Product | ✅ | [代码](solutions/p004.py) | — |
 | 005 | Smallest Multiple | ✅ | [代码](solutions/p005.py) | — |
 | 006 | Sum Square Difference | ✅ | [代码](solutions/p006.py) | — |
 | 007 | 10001st Prime | ✅ | [代码](solutions/p007.py) | — |
 | 008 | Largest Product in a Series | ✅ | [代码](solutions/p008.py) | — |
-| 009 | Special Pythagorean Triplet | ✅ | [代码](solutions/p009.py) | — |
+| 009 | Special Pythagorean Triplet | ✅ | [代码](solutions/p009.py) | [📖](notes/p009-Special Pythagorean Triplet.md) ⭐ |
 | 010 | Summation of Primes | ✅ | [代码](solutions/p010.py) | — |
 | 011 | Largest Product in a Grid | ✅ | [代码](solutions/p011.py) | — |
 | 012 | Highly Divisible Triangular Number | ✅ | [代码](solutions/p012.py) | — |
-| 013 | — | ❌ | — | — |
+| 013 | Large Sum | ✅ | [代码](solutions/p013.py) | — |
 | 014 | — | ❌ | — | — |
 | 015 | — | ❌ | — | — |
 | 016 | — | ❌ | — | — |
@@ -1121,7 +1121,9 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 ### 🌟 重点题解
 
 <!-- featured starts -->
-_暂无重点题解，在 notes/ 目录添加 Markdown 文件即可自动收录。_
+| 题号 | 标题 | 代码 | 题解 |
+|------|------|------|------|
+| ⭐ **009** | Special Pythagorean Triplet | [p009.py](solutions/p009.py) | [📖 详解](notes/p009-Special Pythagorean Triplet.md) |
 <!-- featured ends -->
 
 ---
