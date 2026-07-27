@@ -67,7 +67,7 @@ c &= k(m^2 + n^2)\\
 \end{aligned}
 $$
 
-因此，$a+b+c=2km(m+n)$。仅需枚举$m,n$检验是否$2m(m+n)$可整除即可
+因此， $a+b+c=2km(m+n)$ 。仅需枚举 $m,n$ 检验是否 $2m(m+n)$ 可整除即可
 
 ```python
 # solutions/p009_2.py
