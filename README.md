@@ -15,13 +15,13 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 <!-- progress starts -->
 ### 总体进度
 
-- **已解题**: 13 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.3%
+- **已解题**: 15 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.5%
 
 ### 区间概览
 
 | 区间 | 完成 | 进度 | 状态 |
 |------|------|------|------|
-| [001-100](#001-100) | 13/100 | `██░░░░░░░░░░░░░░░░░░` 13.0% | 🔴 缓慢 |
+| [001-100](#001-100) | 15/100 | `███░░░░░░░░░░░░░░░░░` 15.0% | 🔴 缓慢 |
 | [101-200](#101-200) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [201-300](#201-300) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [301-400](#301-400) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
@@ -39,7 +39,7 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 
 <!-- index starts -->
 <details open>
-<summary><b>001-100</b> — 13/100 `██░░░░░░░░░░░░░░░░░░` 13.0%</summary>
+<summary><b>001-100</b> — 15/100 `███░░░░░░░░░░░░░░░░░` 15.0%</summary>
 
 | 题号 | 标题 | 状态 | 代码 |
 |------|------|------|------|
@@ -60,9 +60,9 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 | 015 | — | ❌ | — |
 | 016 | — | ❌ | — |
 | 017 | — | ❌ | — |
-| 018 | — | ❌ | — |
+| 018 | Maximum Path Sum I | ✅ | [代码](solutions/p018.py) |
 | 019 | — | ❌ | — |
-| 020 | — | ❌ | — |
+| 020 | Factorial Digit Sum | ✅ | [代码](solutions/p20.py) |
 | 021 | — | ❌ | — |
 | 022 | — | ❌ | — |
 | 023 | — | ❌ | — |
@@ -1123,6 +1123,7 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 | 题号 | 标题 | 代码 | 题解 |
 |------|------|------|------|
 | ⭐ **009** | Special Pythagorean Triplet | [p009.py](solutions/p009.py) | [📖 原理详解](notes/p009-Special%20Pythagorean%20Triplet.md) |
+| ⭐ **012** | Project Euler 12 — Highly Divisible Triangular Number | [p012.py](solutions/p012.py) | [📖 原理详解](notes/p012-Highly%20Divisible%20Triangular%20Numer.md) |
 <!-- featured ends -->
 
 ---
