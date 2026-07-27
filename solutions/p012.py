@@ -13,3 +13,64 @@ Let us list the factors of the first seven triangle numbers:
 We can see that 28 is the first triangle number to have over five divisors.
 What is the value of the first triangle number to have over five hundred divisors?
 '''
+
+def num_divisors(num: int) ->dict:
+    '''
+    Prime factorizer
+    Output: prime factors and corresponding index.
+    '''
+    factor_dict={}
+
+    def counter(num:int, factor:int, factor_dict:dict):
+        exponent =0
+        is_factor =False
+        while num %factor == 0:
+            is_factor = True
+            num //= factor
+            exponent +=1
+        if is_factor:
+            factor_dict[factor] = exponent
+        return num, factor_dict
+    
+    factor =2
+    num, factor_dict =counter(num, factor, factor_dict)
+    factor =3
+    while factor*factor <= num:
+        # num会随着整除不断变小，但质因子必然小于其平方根
+        num, factor_dict =counter(num, factor, factor_dict)
+        factor += 2 # factor不一定需要质数如到9的时候已经3的因子整除完了
+    
+    # 剩余的大于 1 的 num 是质数
+    if num > 1:
+       factor_dict[num] =1
+    return factor_dict
+
+def sol_triangle_num(limit:int) -> int:
+    '''
+    the first triangle number to have over `limit` divisors.
+    '''
+    def triangle_num(n):
+        return n*(n+1)//2
+    
+    n = 1
+    while True:
+        count =1 # 因子个数
+        num =triangle_num(n)
+        factor_dict =num_divisors(num)
+        for exponent in factor_dict.values():
+            count *= exponent+1
+        
+        if count > limit:
+            return num, factor_dict
+        n += 1
+
+if __name__=='__main__':
+    limit = 500
+    test_num =500
+    print(f'factor dict for {test_num}: {num_divisors(test_num)}')
+    num, factor_dict = sol_triangle_num(limit)
+    print('Ans:', num) # Ans: 76576500
+    print('Corresponding factor dict:', factor_dict) # Corresponding factor dict: {2: 2, 3: 2, 5: 3, 7: 1, 11: 1, 13: 1, 17: 1}
+    pass
+
+
