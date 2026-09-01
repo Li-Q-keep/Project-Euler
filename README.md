@@ -15,13 +15,13 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 <!-- progress starts -->
 ### 总体进度
 
-- **已解题**: 15 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.5%
+- **已解题**: 16 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.6%
 
 ### 区间概览
 
 | 区间 | 完成 | 进度 | 状态 |
 |------|------|------|------|
-| [001-100](#001-100) | 15/100 | `███░░░░░░░░░░░░░░░░░` 15.0% | 🔴 缓慢 |
+| [001-100](#001-100) | 16/100 | `███░░░░░░░░░░░░░░░░░` 16.0% | 🔴 缓慢 |
 | [101-200](#101-200) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [201-300](#201-300) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [301-400](#301-400) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
@@ -39,7 +39,7 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 
 <!-- index starts -->
 <details open>
-<summary><b>001-100</b> — 15/100 `███░░░░░░░░░░░░░░░░░` 15.0%</summary>
+<summary><b>001-100</b> — 16/100 `███░░░░░░░░░░░░░░░░░` 16.0%</summary>
 
 | 题号 | 标题 | 状态 | 代码 |
 |------|------|------|------|
@@ -56,7 +56,7 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 | 011 | Largest Product in a Grid | ✅ | [代码](solutions/p011.py) |
 | 012 | Highly Divisible Triangular Number | ✅ | [代码](solutions/p012.py) |
 | 013 | Large Sum | ✅ | [代码](solutions/p013.py) |
-| 014 | — | ❌ | — |
+| 014 | Project Euler Problem 14: Longest Collatz Sequence | ✅ | [代码](solutions/p014.py) |
 | 015 | — | ❌ | — |
 | 016 | — | ❌ | — |
 | 017 | — | ❌ | — |
