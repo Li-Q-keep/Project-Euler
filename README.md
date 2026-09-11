@@ -15,13 +15,13 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 <!-- progress starts -->
 ### 总体进度
 
-- **已解题**: 16 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.6%
+- **已解题**: 18 / 997 `░░░░░░░░░░░░░░░░░░░░` 1.8%
 
 ### 区间概览
 
 | 区间 | 完成 | 进度 | 状态 |
 |------|------|------|------|
-| [001-100](#001-100) | 16/100 | `███░░░░░░░░░░░░░░░░░` 16.0% | 🔴 缓慢 |
+| [001-100](#001-100) | 18/100 | `███░░░░░░░░░░░░░░░░░` 18.0% | 🔴 缓慢 |
 | [101-200](#101-200) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [201-300](#201-300) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
 | [301-400](#301-400) | 0/100 | `░░░░░░░░░░░░░░░░░░░░` 0.0% | ⚪ 未开始 |
@@ -39,7 +39,7 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 
 <!-- index starts -->
 <details open>
-<summary><b>001-100</b> — 16/100 `███░░░░░░░░░░░░░░░░░` 16.0%</summary>
+<summary><b>001-100</b> — 18/100 `███░░░░░░░░░░░░░░░░░` 18.0%</summary>
 
 | 题号 | 标题 | 状态 | 代码 |
 |------|------|------|------|
@@ -57,8 +57,8 @@ Solutions and detailed explanations for Project Euler (Chinese edition) problems
 | 012 | Highly Divisible Triangular Number | ✅ | [代码](solutions/p012.py) |
 | 013 | Large Sum | ✅ | [代码](solutions/p013.py) |
 | 014 | Project Euler Problem 14: Longest Collatz Sequence | ✅ | [代码](solutions/p014.py) |
-| 015 | — | ❌ | — |
-| 016 | — | ❌ | — |
+| 015 | Project Euler Problem 15: Lattice Paths (网格路径) | ✅ | [代码](solutions/p015.py) |
+| 016 | Project Euler Problem 16: Power Digit Sum (幂的数字和) | ✅ | [代码](solutions/p016.py) |
 | 017 | — | ❌ | — |
 | 018 | Maximum Path Sum I | ✅ | [代码](solutions/p018.py) |
 | 019 | — | ❌ | — |
